@@ -108,3 +108,61 @@ sudo mv composer.phar /usr/local/bin/composer
 
 composer
 ```
+
+### Setup multiple virtual host on same IP
+
+Change in your /etc/apache2/sites-available/000-default.conf
+
+```
+<VirtualHost *:80>
+  #ServerName www.example.com
+	ServerAdmin webmaster@localhost
+        
+	DocumentRoot /var/www
+
+	<Directory /var/www/>
+	    Options Indexes FollowSymLinks Includes
+	    AllowOverride All
+	    Order allow,deny
+      Allow from all
+	</Directory>
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+  ServerName 123.123.123.123
+
+  Alias /project-one /var/www/project-one/public
+  Alias /project-two /var/www/project-two/public
+
+  DocumentRoot /var/www/project-one/public
+  <Directory "/var/www/project-one/public">
+    AllowOverride all
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  DocumentRoot /var/www/project-two/public
+  <Directory "/var/www/project-two/public">
+    AllowOverride all
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+  CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+Change in your /var/www/project-one/public/.htaccess
+```
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /project-one/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+```
