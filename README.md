@@ -166,3 +166,58 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
 ```
+
+### Virtual Host Setup in Local
+```
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    ServerName localhost
+    DocumentRoot /var/www
+    
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    ServerName my-project.local
+    DocumentRoot /var/www/my-project/public
+
+    <Directory /var/www/my-project/public/>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+### Virutal Host Setup in Nginx
+```
+server {
+  listen 80;
+  server_name www.my-domain.com;
+  rewrite ^(.*) http://my-domain.com$1 permanent;
+}
+
+server {
+  listen 80 default_server;
+  server_name my-domain.com;
+  root /var/www/my-project/public;
+  index index.php index.html index.htm;
+  location / {
+     try_files $uri $uri/ /index.php?$query_string;
+  }
+
+  location ~ \.php$ {
+     include snippets/fastcgi-php.conf;
+     fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+  }
+
+  location ~ /\.ht {
+     deny all;
+  }
+}
+```
