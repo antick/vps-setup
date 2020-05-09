@@ -49,7 +49,7 @@ Install and setup database-
 ```bash
 sudo apt install mysql-server
 
-mysql_secure_installation
+sudo mysql_secure_installation
 ```
 
 ### PHP
