@@ -35,15 +35,28 @@ If it's not running then figure out the cause by checking its config-
 apache2ctl configtest
 ```
 
-Install and setup database-
+If you have upgraded your system and your PHP version was upgraded then this might cause the issue. You can fix that by disabling the old PHP and enable the new PHP in configuration. Do this only if this is the case otherwise skip this-
+
+```bash
+sudo a2dismod php7.3
+sudo a2enmod php7.4
 ```
+
+### MySQL
+
+Install and setup database-
+
+```bash
 sudo apt install mysql-server
 
 mysql_secure_installation
 ```
 
+### PHP
+
 Install PHP 7.3-
-```
+
+```bash
 sudo apt install php7.3 \
   php7.3-bcmath \
   php7.3-cli \
