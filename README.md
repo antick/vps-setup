@@ -5,19 +5,34 @@ Setup a dev environment on Ubuntu for PHP and node.
 
 Run the updates-
 
-```
+```bash
 sudo apt update
 
 sudo apt upgrade
 ```
 
+### Apache2
+
 Install and start apache2-
-```
+
+```bash
 sudo apt install apache2
 
 sudo systemctl enable apache2
 
 sudo systemctl start apache2
+```
+
+Check if the apache2 is running now or not-
+
+```bash
+sudo systemctl status apache2
+```
+
+If it's not running then figure out the cause by checking its config-
+
+```bash
+apache2ctl configtest
 ```
 
 Install and setup database-
