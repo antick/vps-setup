@@ -84,6 +84,12 @@ In case it still does not work then switch to mysql db in mysql terminal and che
 
 ### PHP
 
+In case you have two PHP versions installed then you can remove the extra one by this command-
+
+```bash
+sudo apt purge php7.3*
+```
+
 Install PHP 7.4-
 
 ```bash
@@ -140,16 +146,9 @@ Update default configuration for apache-
 sudo nano /etc/apache2/sites-available/000-default.conf
 ```
 
-#### Note:
-In case you have two php versions installed you can remove one by this command-
+### GIT 
 
-```
-sudo apt purge php7.2*
-```
-
-Install Git- 
-
-```
+```bash
 sudo apt install git
 ```
 
@@ -157,8 +156,9 @@ Install Node through nvm-
 Follow this to intall node version manager-
 https://github.com/nvm-sh/nvm
 
-Install Composer-
-```
+### Composer
+
+```bash
 curl -s https://getcomposer.org/installer | php
 
 sudo mv composer.phar /usr/local/bin/composer
@@ -214,6 +214,7 @@ Change in your /etc/apache2/sites-available/000-default.conf
 ```
 
 Change in your /var/www/project-one/public/.htaccess
+
 ```
 <IfModule mod_rewrite.c>
 RewriteEngine On
@@ -225,6 +226,7 @@ RewriteRule ^(.*)$ index.php/$1 [L]
 ```
 
 ### Virtual Host Setup in Local
+
 ```
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
@@ -252,6 +254,7 @@ RewriteRule ^(.*)$ index.php/$1 [L]
 ```
 
 ### Virutal Host Setup in Nginx
+
 ```
 server {
   listen 80;
