@@ -42,6 +42,14 @@ sudo a2dismod php7.3
 sudo a2enmod php7.4
 ```
 
+Enable rewrite module in apache2-
+
+```bash
+sudo a2enmod rewrite
+
+sudo systemctl restart apache2
+```
+
 ### MySQL
 
 Install and setup database-
@@ -50,65 +58,86 @@ Install and setup database-
 sudo apt install mysql-server
 
 sudo mysql_secure_installation
+
+sudo systemctl status mysql
 ```
+
+Login into mysql-
+
+```bash
+mysql -u root -p
+```
+
+If the above does not work then try logging in with sudo-
+
+```bash
+sudo mysql -u root
+```
+
+Now set a password for root here in mysql terminal-
+
+```bash
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+```
+
+In case it still does not work then switch to mysql db in mysql terminal and check the user table. Make sure it uses the native password plugin.
 
 ### PHP
 
-Install PHP 7.3-
+Install PHP 7.4-
 
 ```bash
-sudo apt install php7.3 \
-  php7.3-bcmath \
-  php7.3-cli \
-  php7.3-common \
-  php7.3-curl \
-  php7.3-gd \
-  php7.3-intl \
-  php7.3-json \
-  php7.3-mbstring \
-  php7.3-mysql \
-  php7.3-opcache \
-  php7.3-xml \
-  php7.3-soap \
-  php7.3-zip
+sudo apt install php7.4 \
+  php7.4-bcmath \
+  php7.4-cli \
+  php7.4-common \
+  php7.4-curl \
+  php7.4-gd \
+  php7.4-intl \
+  php7.4-json \
+  php7.4-mbstring \
+  php7.4-mysql \
+  php7.4-opcache \
+  php7.4-soap \
+  php7.4-xml \
+  php7.4-zip
 ```
 
 Test the PHP-
-```
+
+```bash
 cd /var/www/html
 
 sudo nano info.php 
 ```
 
 Write this in info.php and run it to check if everything is working fine-
+
 ```php
 <?php
 
 phpinfo();
 
-?>
 ```
 
+### Phpmyadmin
+
 Install phpmyadmin to access database-
-```
+
+```bash
 sudo apt install phpmyadmin
 ```
 
-Increase max_execution_time, max_input_time, memory_limit, post_max_size in php.ini-
-```
-sudo nano /etc/php/7.3/apache2/php.ini
+Increase `max_execution_time`, `max_input_time`, `memory_limit`, `post_max_size` in php.ini-
+
+```bash
+sudo nano /etc/php/7.4/apache2/php.ini
 ```
 
 Update default configuration for apache-
-```
+
+```bash
 sudo nano /etc/apache2/sites-available/000-default.conf
-```
-
-Enable rewrite module in apache-
-```
-sudo a2enmod rewrite
-
-sudo systemctl restart apache2
 ```
 
 #### Note:
