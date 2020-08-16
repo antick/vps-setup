@@ -82,6 +82,20 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
 
 In case it still does not work then switch to mysql db in mysql terminal and check the user table. Make sure it uses the native password plugin.
 
+```bash
+mysql -uroot -p
+SELECT user,authentication_string,plugin,host FROM mysql.user;
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_mysql_pass';
+FLUSH PRIVILEGES;
+SELECT user,authentication_string,plugin,host FROM mysql.user;
+```
+
+Once this is enabled, you would be able to access PHPmyadmin. If you want to access database remotely then you will have to create a new user from phpmyadmin.
+
+Make sure to comment bind address in this file so it can connect remotely-
+
+`nano /etc/mysql/mysql.conf.d/mysqld.cnf`
+
 ### PHP
 
 In case you have two PHP versions installed then you can remove the extra one by this command-
