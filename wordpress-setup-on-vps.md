@@ -38,6 +38,7 @@ Change following lines in nano `/etc/php/8.1/fpm/php.ini`
 cgi.fix_pathinfo=0
 upload_max_filesize = 128M
 post_max_size = 128M
+max_input_vars = 2000
 memory_limit = 512M
 max_execution_time = 120
 ```
